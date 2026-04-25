@@ -6,6 +6,7 @@ extends Control
 @onready var mesh: CheckBox = $VBoxContainer/Connect/Mesh
 
 func _ready() -> void:
+	host.text = "wss://godot-demo-projects-k0or.onrender.com/"
 	client.lobby_joined.connect(_lobby_joined)
 	client.lobby_sealed.connect(_lobby_sealed)
 	client.connected.connect(_connected)
@@ -17,6 +18,10 @@ func _ready() -> void:
 	multiplayer.peer_connected.connect(_mp_peer_connected)
 	multiplayer.peer_disconnected.connect(_mp_peer_disconnected)
 
+	# disable mesh button
+	mesh.button_pressed = false
+	mesh.disabled = true
+
 
 @rpc("any_peer", "call_local")
 func ping(argument: float) -> void:
@@ -25,6 +30,10 @@ func ping(argument: float) -> void:
 
 func _mp_server_connected() -> void:
 	_log("[Multiplayer] Server connected (I am %d)" % client.rtc_mp.get_unique_id())
+	var is_host = client.rtc_mp.get_unique_id() == 1
+	$VBoxContainer/HBoxContainer/Start.disabled = not is_host
+	$VBoxContainer/HBoxContainer/Stop.disabled = not is_host
+	$VBoxContainer/HBoxContainer/Seal.disabled = not is_host
 
 
 func _mp_server_disconnect() -> void:
