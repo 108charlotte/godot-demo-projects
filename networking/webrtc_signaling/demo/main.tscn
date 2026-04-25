@@ -7,7 +7,7 @@
 [node name="Control" type="Control" unique_id=846917499]
 layout_mode = 3
 anchor_left = 0.0136719
-anchor_top = 0.0166667git remote add myfork https://github.com/YOUR_USERNAME/godot-demo-projects.git
+anchor_top = 0.0166667
 anchor_right = 0.986328
 anchor_bottom = 0.983333
 script = ExtResource("1")
